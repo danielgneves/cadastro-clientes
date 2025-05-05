@@ -2,13 +2,14 @@ package com.example.cadastro_clientes.controller;
 
 import com.example.cadastro_clientes.entity.Cliente;
 import com.example.cadastro_clientes.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api/clientes")
 public class ClienteController {
     private ClienteService clienteService;
 
@@ -17,7 +18,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public void salvarCliente(@RequestBody Cliente cliente) {
+    public void salvarCliente(@Valid @RequestBody Cliente cliente) {
         clienteService.salvarCliente(cliente);
     }
 
@@ -32,7 +33,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+    public Cliente atualizarCliente(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
         return clienteService.atualizarCliente(id, cliente);
     }
 
