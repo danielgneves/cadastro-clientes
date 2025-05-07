@@ -1,6 +1,7 @@
 package com.example.cadastro_clientes.service;
 
 import com.example.cadastro_clientes.entity.Cliente;
+import com.example.cadastro_clientes.exception.ClienteNotFoundException;
 import com.example.cadastro_clientes.repository.ClienteRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ClienteService {
 
     public Cliente buscarCliente(Long id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new ClienteNotFoundException());
     }
 
     public Cliente atualizarCliente(Long id, Cliente cliente) {
@@ -44,6 +45,9 @@ public class ClienteService {
     }
 
     public void excluirCliente(Long id) {
+        if(!clienteRepository.existsById(id)) {
+            throw new ClienteNotFoundException();
+        }
         clienteRepository.deleteById(id);
     }
 }

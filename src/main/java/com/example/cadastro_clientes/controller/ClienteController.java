@@ -3,6 +3,7 @@ package com.example.cadastro_clientes.controller;
 import com.example.cadastro_clientes.entity.Cliente;
 import com.example.cadastro_clientes.service.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +39,8 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public void excluirCliente(@PathVariable Long id) {
+    public ResponseEntity<String> excluirCliente(@PathVariable Long id) {
         clienteService.excluirCliente(id);
+        return ResponseEntity.ok("Cliente com ID " + id + " excluído com sucesso!");
     }
 }
